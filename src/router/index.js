@@ -15,10 +15,17 @@ const routes = [
     component: () => import('@/views/Blog'),
   },
   {
+    path: '/content/:id',
+    props: true,
+    name: 'blogContent',
+    component: () => import('@/views/Blog/BlogContent.vue'),
+  },
+  {
     path: '/exam',
     name: 'Exam',
     component: () => import('@/views/Exam'),
   },
+
   {
     path: '/school',
     name: 'School',

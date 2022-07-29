@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <router-view></router-view>
     <v-container class="d-flex justify-center" fluid>
       <!-- 博客的分类 排序 -->
       <v-card flat width="700">
@@ -58,7 +59,13 @@
           <v-divider></v-divider>
           <v-list>
             <v-list-item-group>
-              <v-list-item dense class="px-1" v-for="item in hotBlog" :key="item.id">
+              <v-list-item
+                :to="`/content/` + item.id"
+                dense
+                class="px-1"
+                v-for="item in hotBlog"
+                :key="item.id"
+              >
                 <v-list-item-icon class="mr-2">
                   <v-icon color="red">mdi-numeric-{{ item.id }}-box</v-icon>
                 </v-list-item-icon>
