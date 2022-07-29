@@ -4,7 +4,7 @@
       <div v-for="(item, index) in blogCardData.blogList" :key="index">
         <v-hover v-slot="{ hover }">
           <v-list-item
-            :to="`/content/` + item.id"
+            :to="'/content/' + item.id"
             :class="hover ? 'elevation-12 mb-3' : 'elevation-2 mb-3'"
             three-line
           >

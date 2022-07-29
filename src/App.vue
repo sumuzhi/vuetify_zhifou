@@ -11,3 +11,10 @@ export default {
   name: 'App',
 }
 </script>
+<style>
+/* 重写code标签的属性 */
+.theme--light.v-application code {
+  background-color: #282c34;
+  color: #abb2bf;
+}
+</style>
