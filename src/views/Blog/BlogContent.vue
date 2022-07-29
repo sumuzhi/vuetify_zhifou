@@ -124,25 +124,25 @@
     <!-- 悬浮按钮 -->
     <v-sheet class="text-center text-caption" style="position: fixed; right: 60px; bottom: 80px">
       <div class="my-2">
-        <v-btn fab outlined small color="grey">
+        <v-btn icon @click="handleReport" outlined color="blue">
           <v-icon>mdi-alert-circle-outline</v-icon>
         </v-btn>
         <div class="mt-2 grey--text">举报</div>
       </div>
       <div class="my-2">
-        <v-btn fab outlined small color="orange">
+        <v-btn outlined icon color="orange">
           <v-icon>mdi-reply</v-icon>
         </v-btn>
         <div class="mt-2 grey--text">{{ detailBlog.share }}</div>
       </div>
       <div class="my-2">
-        <v-btn fab outlined small color="red">
+        <v-btn outlined icon color="red">
           <v-icon>mdi-star</v-icon>
         </v-btn>
         <div class="mt-2 grey--text">{{ detailBlog.collect }}</div>
       </div>
       <div class="my-2">
-        <v-btn fab outlined small color="blue" @click="$vuetify.goTo('#blogComment')">
+        <v-btn outlined icon color="blue" @click="$vuetify.goTo('#blogComment')">
           <v-icon>mdi-message-text</v-icon>
         </v-btn>
         <div class="mt-2 grey--text">{{ formatterNumber(detailBlog.comment) }}</div>
@@ -153,21 +153,24 @@
         </v-btn>
       </div>
     </v-sheet>
+
+    <ReportDialog />
   </v-container>
 </template>
 
 <script>
 import { formatNumber } from '../../mixin/mixin'
 import blogDetail from '@/config/blogDetail'
-
 import 'highlight.js/styles/atom-one-dark.css'
 import hljs from 'highlight.js'
 window.hljs = require('highlight.js')
 require('@/plugins/highlightjs-line-numbers')
+import ReportDialog from '@/components/report/ReportDialog.vue'
 export default {
-  mixins: [formatNumber],
   name: 'BlogContent',
   props: ['id'],
+  mixins: [formatNumber],
+  components: { ReportDialog },
   data() {
     return {
       authorInfo: {},
@@ -176,6 +179,9 @@ export default {
     }
   },
   methods: {
+    handleReport() {
+      this.$bus.$emit('openDialog')
+    },
     getDetailBlog() {
       this.detailBlog = blogDetail
     },
@@ -208,6 +214,7 @@ export default {
     this.getDetailBlog()
     this.getAuthorInfo()
     this.getAuthorBlog()
+    this.$bus.$emit('changeTabs','/blog')
   },
   mounted() {
     hljs.highlightAll()

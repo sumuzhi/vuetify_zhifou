@@ -1,7 +1,7 @@
 <template>
   <v-app-bar app color="#ffffff">
     <v-container fluid>
-      <v-tabs centered slider-size="3">
+      <v-tabs centered slider-size="3" :value="tabValue">
         <v-tab :to="item.href" v-for="item in tabMenus" :key="item.id">{{ item.name }}</v-tab>
       </v-tabs>
       <v-btn text absolute right top class="mr-10" @click="showLoginWindow">登录</v-btn>
@@ -16,11 +16,17 @@ import LoginRegister from '@/components/loginRegister'
 export default {
   name: 'HeaderBar',
   components: { LoginRegister },
-  data: () => ({
-    tabMenus: [],
-  }),
-  mounted() {
+  data() {
+    return {
+      tabMenus: [],
+      tabValue: null,
+    }
+  },
+  created() {
     this.getTabMenus()
+    this.$bus.$on('changeTabs', value => {
+      this.tabValue = value
+    })
   },
 
   methods: {
